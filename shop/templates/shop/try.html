@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="ru"  class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+</head>
+  <body class="d-flex h-10 text-center text-white bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="mb-auto">
+    <div>
+      <h3 class="float-md-start mb-0">TeaTime</h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="page" href="/">Главная</a>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link active" aria-current="" href="/catalog">Каталог</a>
+      </nav>
+    </div>
+  </header>
+
+<div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    {% for tea in teas%}
+        <div class="col">
+        <div  style="color: black" class="card mb-4 rounded-3 shadow-sm">
+          <div  class="card-header py-3">
+            <h4 class="my-0 fw-normal">{{tea|upper}}</h4>
+          </div>
+          <div class="card-body">
+            {% if tea.discount != 0 %}
+            {% load index %}
+            <h1 style="color: red"  class="card-title pricing-card-title"><s>{{prices |get:forloop.counter0}}₽ </s>   {{final_price|get:forloop.counter0}}₽ <small class="text-muted fw-light">/100г</small></h1>
+            {% else %}
+            <h1 style="color: black"  class="card-title pricing-card-title">{{final_price|get:forloop.counter0}}₽ </s><small class="text-muted fw-light">/100г</small></h1>
+            {% endif %}
+              <ul class="list-unstyled mt-3 mb-4">
+                {% load index %}
+              <li style="color: black">Поставщик: "{{prod |get:forloop.counter0}}"</li>
+              <li style="color: black">Priority email support</li>
+              <li style="color: black">Help center access</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-kl btn-primary">КУПИТЬ</button>
+          </div>
+        </div>
+      </div>
+    {% endfor%}
+    </div>
